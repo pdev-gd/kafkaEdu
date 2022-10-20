@@ -17,21 +17,21 @@ public class SimpleConsumer {
     public static void main(String[] args) {
 
         Properties props = new Properties();
-        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
+        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:29092");
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
-        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "group-00004");
+        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "gx-1");
         props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
-        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(props);
+        KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
 
-        kafkaConsumer.subscribe(Arrays.asList("topic1010"));
+        kafkaConsumer.subscribe(Arrays.asList("test-topic"));
 
         while(true){
-            ConsumerRecords<String,String> consumerRecords = kafkaConsumer.poll(Duration.ofMillis(1000));
-            for (ConsumerRecord record : consumerRecords){
+            ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofMillis(1000));
+            for(ConsumerRecord record : consumerRecords){
                 logger.info("record key:{}, record value:{}, partition:{}, offset:{}",
-                        record.key(), record.value(), record.partition(), record.offset());
+                        record.key(),record.value(),record.partition(),record.offset());
             }
         }
     }
