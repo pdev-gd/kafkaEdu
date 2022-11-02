@@ -7,10 +7,11 @@ import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.Properties;
 
-public class SimpleProducer {
+public class ProducerExtPartition {
     public static void main(String[] args) {
 
         String topicName = "test-topic";
+        int partitionNo = 0;
 
         //Properties
         Properties props = new Properties();
@@ -20,7 +21,7 @@ public class SimpleProducer {
 
         //KafkaProducer, ProducerRecord
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, "Hello", "Kafka");
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, partitionNo,"Hello", "Partition-0");
 
         //Send ProducerRecord
         kafkaProducer.send(producerRecord);
