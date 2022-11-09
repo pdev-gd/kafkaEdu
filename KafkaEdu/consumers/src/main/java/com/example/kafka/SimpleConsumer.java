@@ -25,7 +25,7 @@ public class SimpleConsumer {
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
 
-        kafkaConsumer.subscribe(Arrays.asList("test-topic"));
+        kafkaConsumer.subscribe(Arrays.asList("test-1110"));
 
         while(true){
             ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofMillis(1000));

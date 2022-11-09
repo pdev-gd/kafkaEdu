@@ -10,7 +10,7 @@ import java.util.Properties;
 public class ProducerExtPartition {
     public static void main(String[] args) {
 
-        String topicName = "test-topic";
+        String topicName = "test-p";
         int partitionNo = 0;
 
         //Properties
@@ -21,12 +21,11 @@ public class ProducerExtPartition {
 
         //KafkaProducer, ProducerRecord
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, partitionNo,"Hello", "Partition-0");
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, partitionNo,"Hello", "World");
 
         //Send ProducerRecord
         kafkaProducer.send(producerRecord);
         kafkaProducer.flush();
         kafkaProducer.close();
-
     }
 }
