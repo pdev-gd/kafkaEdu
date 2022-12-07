@@ -1,0 +1,15 @@
+{
+  "name": "mongo-sink-fake-topic",
+  "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+  "tasks.max": "2",
+  "topics": "fake-topic-21",
+  "connection.uri": "mongodb://localhost:27017",
+  "database": "kafedu",
+  "topic.override.fake-topic.collection": "fake-topic-21",
+  "key.converter.schemas.enable" : "false",
+  "value.converter.schemas.enable" : "false",
+  "key.converter" : "org.apache.kafka.connect.storage.StringConverter",
+  "value.converter" : "org.apache.kafka.connect.json.JsonConverter"
+  }
+}

@@ -1,6 +1,10 @@
 package com.example.kafka;
 
+
 import com.github.javafaker.Faker;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -25,12 +29,19 @@ public class FakeMessage {
         String phoneNumber = faker.phoneNumber().phoneNumber();
         String address = faker.address().streetAddress();
         LocalDateTime now = LocalDateTime.now();
-        String message = String.format("order_id:%s, shop:%s, menu_name:%s, customer_name:%s, phone_number:%s, address:%s, time:%s"
-                , ordId, shopId, menuName, customerName, phoneNumber, address
-                , now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)));
+//        String message = String.format("order_id:%s, shop:%s, menu_name:%s, customer_name:%s, phone_number:%s, address:%s, time:%s"
+//                , ordId, shopId, menuName, customerName, phoneNumber, address
+//                , now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)));
+
         HashMap<String, String> messageMap = new HashMap<>();
-        messageMap.put("key", shopId);
-        messageMap.put("message", message);
+//        messageMap.put("message", message);
+        messageMap.put("ordId", ordId);
+        messageMap.put("shopId", shopId);
+        messageMap.put("menuName", menuName);
+        messageMap.put("customerName", customerName);
+        messageMap.put("phoneNumber", phoneNumber);
+        messageMap.put("address", address);
+        messageMap.put("time", now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss", Locale.KOREAN)));
 
         return messageMap;
     }
@@ -41,9 +52,13 @@ public class FakeMessage {
         Random random = new Random(seed);
         Faker faker = new Faker(Locale.KOREAN);
 
+        Gson gson = new Gson();
+
         for(int i=0; i < 60; i++) {
             HashMap<String, String> message = FakeMessage.produce_msg(faker, random, i);
-            System.out.println("key:"+ message.get("key") + " message:" + message.get("message"));
+            JsonObject json = gson.toJsonTree(message).getAsJsonObject();
+
+            System.out.println(json.toString());
         }
     }
 }

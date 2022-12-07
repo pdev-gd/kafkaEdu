@@ -1,15 +1,22 @@
 package com.example.kafka;
 
 import com.github.javafaker.Faker;
-import org.apache.kafka.clients.producer.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
-import org.apache.kafka.common.serialization.StringSerializer;
+
 
 public class FakeProducer {
     public static final Logger logger = LoggerFactory.getLogger(FakeProducer.class.getName());
@@ -27,10 +34,15 @@ public class FakeProducer {
 
         long startTime = System.currentTimeMillis();
 
+        Gson gson = new Gson();
+
+
         while( iterSeq++ != iterCount ) {
             HashMap<String, String> pMessage = FakeMessage.produce_msg(faker, random, iterSeq);
+            JsonObject json = gson.toJsonTree(pMessage).getAsJsonObject();
+
             ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName,
-                    pMessage.get("key"), pMessage.get("message"));
+                    pMessage.get("shopId"), json.toString());
             sendMessage(kafkaProducer, producerRecord, pMessage, sync);
 
             if((intervalCount > 0) && (iterSeq % intervalCount == 0)) {
@@ -84,7 +96,7 @@ public class FakeProducer {
 
     public static void main(String[] args) {
 
-        String topicName = "fake-topic";
+        String topicName = "fake-topic-21";
 
         Properties props  = new Properties();
         props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");

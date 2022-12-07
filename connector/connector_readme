@@ -31,3 +31,29 @@ plugin.path=/Users/byoon/study/kafka/Test02/kafka_client_2.8.2/plugins
 connect-distributed.sh /Users/byoon/study/kafka/Test02/kafka_client_2.8.2/config/connect-my-distribted.properties &
 
 
+--
+vi /Users/byoon/study/kafka/Test02/kafka_client_2.8.2/config/mongo-sink.json
+{
+  "name": "mongo-sink-fake-topic",
+  "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+  "tasks.max": "2",
+  "topics": "fake-topic",
+  "connection.uri": "mongodb://localhost:27017",
+  "database": "kafedu",
+  "topic.override.fake-topic.collection": "fake-topic",
+  "key.converter.schemas.enable" : "false",
+  "value.converter.schemas.enable" : "false",
+  "key.converter" : "org.apache.kafka.connect.storage.StringConverter",
+  "value.converter" : "org.apache.kafka.connect.json.JsonConverter"
+  }
+}
+
+curl -X POST -H "Content-Type: application/json" --data @/Users/byoon/study/kafka/Test02/kafka_client_2.8.2/config/mongo-sink.json http://localhost:8083/connectors/
+curl -X GET http://localhost:8083/connectors
+curl -X GET http://localhost:8083/connectors/mongo-sink-fake-topic/tasks | jq
+curl -X GET http://localhost:8083/connectors/mongo-sink-fake-topic/status | jq
+curl -X PUT http://localhost:8083/connectors/mongo-sink-fake-topic/pause
+curl -X DELETE http://localhost:8083/connectors/mongo-sink-fake-topic
+
+
