@@ -75,7 +75,7 @@ public class FakeProducer {
         if(!sync) {
             kafkaProducer.send(producerRecord, (metadata, exception) -> {
                 if (exception == null) {
-                    logger.info("async message:" + pMessage.get("key") + " partition:" + metadata.partition() +
+                    logger.info("async message:" + pMessage.get("shopId") + " partition:" + metadata.partition() +
                             " offset:" + metadata.offset());
                 } else {
                     logger.error("exception error from broker " + exception.getMessage());
@@ -84,7 +84,7 @@ public class FakeProducer {
         } else {
             try {
                 RecordMetadata metadata = kafkaProducer.send(producerRecord).get();
-                logger.info("sync message:" + pMessage.get("key") + " partition:" + metadata.partition() +
+                logger.info("sync message:" + pMessage.get("shopId") + " partition:" + metadata.partition() +
                         " offset:" + metadata.offset());
             } catch (ExecutionException e) {
                 logger.error(e.getMessage());
@@ -96,7 +96,7 @@ public class FakeProducer {
 
     public static void main(String[] args) {
 
-        String topicName = "fake-topic-21";
+        String topicName = "fake-topic20";
 
         Properties props  = new Properties();
         props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
