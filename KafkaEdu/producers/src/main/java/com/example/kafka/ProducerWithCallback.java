@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
+//콜백으로 구현한 카프카 어싱크 프로듀서
+
 public class ProducerWithCallback {
     public static final Logger logger = LoggerFactory.getLogger(ProducerWithCallback.class.getName());
 
