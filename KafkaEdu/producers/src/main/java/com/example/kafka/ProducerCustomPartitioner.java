@@ -21,7 +21,7 @@ public class ProducerCustomPartitioner {
 
         //KafkaProducer, ProducerRecord
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName,"?", "This custom partitioner");
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName,"goodusdata01", "This custom partitioner");
 
         //Send ProducerRecord
         kafkaProducer.send(producerRecord);

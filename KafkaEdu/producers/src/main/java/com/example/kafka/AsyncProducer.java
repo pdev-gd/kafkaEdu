@@ -11,17 +11,17 @@ public class AsyncProducer {
     public static final Logger logger = LoggerFactory.getLogger(AsyncProducer.class.getName());
     public static void main(String[] args) {
 
-        String topicName = "test-topic";
+        String topicName = "test-topic-01";
 
         //Properties
         Properties props  = new Properties();
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "v2-kafka1:29092");
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         //KafkaProducer, ProducerRecord
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
-        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, "hello","world2");
+        ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName, "hello","async");
 
         //send producerRecord
         kafkaProducer.send(producerRecord, (metadata, exception)-> {

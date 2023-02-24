@@ -3,10 +3,7 @@ package com.example.kafka;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 import org.apache.kafka.common.InvalidRecordException;
-import org.apache.kafka.common.PartitionInfo;
-import org.apache.kafka.common.utils.Utils;
 
-import java.util.List;
 import java.util.Map;
 
 public class CustomPartitioner  implements Partitioner {
@@ -17,10 +14,10 @@ public class CustomPartitioner  implements Partitioner {
         if (keyBytes == null) {
             throw new InvalidRecordException("Need msg key");
         }
-        if (((String)key).equals("Goodusdata")){
+        if (((String)key).equals("Goodusdata01")){
             return 0;
         }
-        if (((String)key).equals("Goodus")){
+        if (((String)key).equals("Goodusdata02")){
             return 1;
         } else {
             return 2;
