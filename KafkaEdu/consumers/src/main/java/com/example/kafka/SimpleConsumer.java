@@ -14,16 +14,16 @@ public class SimpleConsumer {
     public static void main(String[] args) {
 
         Properties props = new Properties();
-        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:29092");
+        props.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"v2-kafka1:29092");
         props.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
         props.setProperty(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG,StringDeserializer.class.getName());
-        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "gx-10");
+        props.setProperty(ConsumerConfig.GROUP_ID_CONFIG, "gx-11");
         props.setProperty(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 //        props.setProperty(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, CooperativeStickyAssignor.class.getName());
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<>(props);
 
-        kafkaConsumer.subscribe(Arrays.asList("fake-topic20"));
+        kafkaConsumer.subscribe(Arrays.asList("fake-topic-24"));
 
         while(true){
             ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofMillis(1000));

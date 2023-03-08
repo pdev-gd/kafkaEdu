@@ -96,17 +96,17 @@ public class FakeProducer {
 
     public static void main(String[] args) {
 
-        String topicName = "fake-topic20";
+        String topicName = "fake-topic-0308";
 
         Properties props  = new Properties();
-        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092");
+        props.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "v2-kafka1:29092");
         props.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
         KafkaProducer<String, String> kafkaProducer = new KafkaProducer<String, String>(props);
 
         sendFakeMessage(kafkaProducer, topicName,
-                -1, 1000, 0, 0, false);
+                -1, 100, 0, 0, false);
         kafkaProducer.close();
     }
 }
