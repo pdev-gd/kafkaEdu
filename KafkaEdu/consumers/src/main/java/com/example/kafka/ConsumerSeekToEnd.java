@@ -9,11 +9,12 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
-public class ConsumerSeek {
-    public static final Logger logger = LoggerFactory.getLogger(ConsumerSeek.class.getName());
+public class ConsumerSeekToEnd {
+    public static final Logger logger = LoggerFactory.getLogger(ConsumerSeekToEnd.class.getName());
 
     public static void main(String[] args) {
 
@@ -31,7 +32,10 @@ public class ConsumerSeek {
         TopicPartition topicPartition = new TopicPartition(topicName, 0);
 
         kafkaConsumer.assign(Arrays.asList(topicPartition));
-        kafkaConsumer.seek(topicPartition, 17);
+        kafkaConsumer.seekToEnd(Collections.singleton(topicPartition));
+        long currentOffset = kafkaConsumer.position(topicPartition) -1;
+        logger.info("Current Offset : " + currentOffset);
+        kafkaConsumer.seek(topicPartition, currentOffset);
 
         Thread mainThread = Thread.currentThread();
         Runtime.getRuntime().addShutdownHook(new Thread() {

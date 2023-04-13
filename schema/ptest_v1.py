@@ -24,7 +24,7 @@ def kafka_producer():
     schema_registry_url = "http://v2-schema:8081"
     group_id = "test-group-01"
     auto_offset_reset = "earliest"
-    topic = "schema-1"
+    topic = "sch01"
 
     # kafka producer
     work_dir = os.path.dirname(os.path.abspath(__file__))
