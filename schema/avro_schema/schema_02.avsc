@@ -10,7 +10,7 @@
       "name": "username", "type": "string"
     },
     {
-      "name": "card_no","type": "long", "default": "111-111-1111"
+      "name": "card_no","type": "string", "default": "111-111-1111"
     }
   ]
 }
